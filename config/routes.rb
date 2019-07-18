@@ -56,5 +56,9 @@ Rails.application.routes.draw do
     resources :orders, only: :show
   end
 
+  scope :dashboard, as: :dashboard, module: :merchants do
+    resources :items, only: [:index, :new, :edit, :show, :destroy]
+  end
+
   get '*path', to: 'welcome#error404'
 end
