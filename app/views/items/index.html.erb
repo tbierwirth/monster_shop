@@ -1,20 +1,48 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+
+    <h2 class="deepshd"> ITEMS</h2>
+    <p class="lead"></p>
+  </div>
+</div>
+
+
 <% if @merchant %>
-  <h1>All Items From <%= link_to @merchant.name, "/merchant/#{@merchant.id}" %></h1>
+  <h1>All Items From <%= link_to @merchant.name, "/merchants/#{@merchant.id}" %></h1>
   <%= link_to 'New Item', "/merchants/#{@merchant.id}/items/new" %>
 <% else %>
   <h1>All Items</h1>
 <% end %>
 
-<% @items.each do |item| %>
-  <section id='item-<%= item.id%>'>
-    <h2><%= link_to item.name, "/items/#{item.id}" %></h2>
-    <p><%= item.description %></p>
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw">
-    <p>Price: <%= number_to_currency(item.price) %></p>
-    <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %>, Inventory: <%= item.inventory %></p>
-    <p><%= item.active ? "Active" : "Inactive" %></p>
-  </section>
-<% end %>
+<section class="details-card">
+    <div class="container-fluid">
+        <div class="row">
+          <% @items.each do |item| %>
+              <div class="col-md-4 p-3">
+                <div class="card-content" id="item-<%= item.id %>">
+                    <div class="card-img" >
+                        <img src="<%= item.image %>" alt="">
+                        <div class="card-header">
+                          <h1 class="card-title text-center"><%= link_to (item.name), item_path(item), {:style=>"color:black;"} %></h1>
+                        </div>
+                    </div>
+                      <div class="card-desc card-footer">
+                        <p><%= item.description %></p>
+                        <p>Price: <%= number_to_currency(item.price) %>
+                        <p>Sold by: <%= link_to item.merchant.name, "/merchants/#{item.merchant_id}" %></p>
+                        <p>Status: <%= item.active ? "Active" : "Inactive" %></p>
+                        <p>Inventory: <%= item.inventory %></p>
+                      </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+    </div>
+</section>
 
 <% unless @merchant %>
   <section id='top-five'>

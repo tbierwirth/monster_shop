@@ -1,6 +1,38 @@
-<%= link_to 'New Merchant', '/merchants/new' %>
-<% @merchants.each do |merchant| %>
-  <section id='merchant-<%= merchant.id %>'>
-    <h2><%= link_to merchant.name, "/merchants/#{merchant.id}" %></h2>
-  </section>
-<% end %>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
+
+<!-- details card section starts from here -->
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h2 class="deepshd"> MERCHANT </h2>
+    <p class="lead"></p>
+  </div>
+</div>
+
+<section class="details-card">
+    <div class="container-fluid">
+        <div class="row">
+          <button type="button" class="btn btn-dark btn-lg btn-block"><%= link_to 'New Merchant', new_merchant_path, {:style=>"color:#fff;"} %></button>
+          <% @merchants.each do |merchant| %>
+              <div class="col-md-4 p-3">
+                <div class="card-content" id='merchant-<%= merchant.id %>'>
+                    <div class="card-img">
+                        <img src="<%= merchant.image %>" alt="">
+                        <div class="card-header">
+                          <h1 class="card-title text-center"><%= link_to (merchant.name), merchant_path(merchant), {:style=>"color:black;"} %></h1>
+                        </div>
+                    </div>
+                      <div class="card-desc card-footer">
+                        <p><%= merchant.address %></p>
+                        <p><%= merchant.city %> <%= merchant.state %> <%= merchant.zip %></p>
+                      </div>
+                </div>
+              </div>
+          <% end %>
+        </div>
+    </div>
+</section>
