@@ -19,7 +19,7 @@
                 <p>Inventory:
                   <%= @item.inventory %></p>
               </div>
-                <%= button_to('Add to Cart', ("/cart/#{@item.id}"), :class => 'btn btn-dark btn-lg btn-block') %>
+                <%= button_to('Add to Cart', ("/cart/#{@item.id}"), :class => 'btn btn-dark btn-lg btn-block') unless current_admin? %>
             </div>
           </div>
       </div>
