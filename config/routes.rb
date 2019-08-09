@@ -2,15 +2,18 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # => root
-  get '/', to: 'welcome#index', as: :root
+  root to: 'welcome#index'
 
-  get '/admin/merchants', to: 'admin/merchants#index', as: :admin_merchant_index
   get 'admin/merchants/new', to: 'admin/merchants#new', as: :new_merchant
-  post '/merchants', to: 'admin/merchants#create', as: :create_merchant
-  patch '/merchants/:id', to: 'admin/merchants#update'
-  delete 'merchants/:id', to: 'admin/merchants#destroy', as: :delete_merchant
-  get '/merchants/:id/edit', to: 'admin/merchants#edit', as: :edit_merchant
-  get '/admin/merchants/:id', to: 'admin/merchants#show', as: :admin_merchant_show
+
+  scope module: 'admin' do
+    resources :merchants, only: [:index], as: :admin_merchant, path: '/admin/merchants'
+    resource :merchants, only: [:show], as: :admin_merchant_show, path: '/admin/merchants/:id'
+    resource :merchants, only: [:create], as: :create_merchant, path: '/merchants'
+    resource :merchants, only: [:update], as: :create_merchant, path: '/merchants/:id'
+    resource :merchants, only: [:destroy], as: :delete_merchant, path: '/merchants/:id'
+    resource :merchant, only: [:edit], path: '/merchants/:id'
+  end
 
   # => admin manipulates a merchants items
   get '/admin/merchants/:merchant_id/items', to: 'admin/items#index', as: :admin_merchant_items
