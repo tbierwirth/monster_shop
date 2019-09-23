@@ -3,4 +3,4 @@ E-Commerce web app implementing authorization/authentication for users, merchant
 
 ## Setup
  - Run `bundle`
- - Run `rails db:{create,migrated,seed}
+ - Run `rails db:{create,migrated,seed}`
